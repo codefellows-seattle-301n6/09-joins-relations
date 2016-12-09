@@ -5,9 +5,11 @@
   var stateFilter = function() {
     webDB.execute(
       'SELECT state FROM zips',
-      function(state){
-        console.log(state.state);
-        // $('#state-select').append('<option value="' + state + '">' + state + '</option>');
+      function(states){
+        console.log(states);
+        states.forEach(function(ele) {
+          $('#state-select').append('<option value="' + ele.state + '">' + ele.state + '</option>');
+        });
       }
     );
   };
