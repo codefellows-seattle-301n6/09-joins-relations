@@ -18,7 +18,6 @@
   var cityFilter = function() {
     $('#state-select').on('change', function(){
       document.getElementById('city-select').options.length = 1;
-      // console.log($(this).val());
       webDB.execute(
         'SELECT city FROM zips WHERE state = "' + $(this).val() + '"',
         function(cities){
@@ -31,9 +30,23 @@
       );
     });
   };
+
+  var zipSearch = function() {
+    $('form').submit(function(e){
+      e.preventDefault();
+      var userInput = $('input[name="zip"]').val();
+      webDB.execute(
+        'SELECT latitude, longitude FROM zips WHERE zip="' + userInput + '"',
+        function(coordinates) {
+          console.log(coordinates[0].latitude);;
+        }
+      );
+    });
+  };
   // TODO: Write the code to populate your filters, and enable the search queries here in search.js
   // TODO: You will also interact with the map.js file here
 
   stateFilter();
   cityFilter();
+  zipSearch();
 })(window);
