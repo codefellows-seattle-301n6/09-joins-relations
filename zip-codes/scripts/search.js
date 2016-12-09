@@ -9,7 +9,7 @@
         states.forEach(function(ele) {
           if ($('#state-select option[value="' + ele.state + '"]').length === 0) {
             $('#state-select').append('<option value="' + ele.state + '">' + ele.state + '</option>');
-          }
+          }//TODO: sort the states alphabetically
         });
       }
     );
@@ -19,12 +19,12 @@
     $('#state-select').on('change', function(){
       document.getElementById('city-select').options.length = 1;
       webDB.execute(
-        'SELECT city FROM zips WHERE state = "' + $(this).val() + '"',
+        'SELECT city, latitude, longitude FROM zips WHERE state = "' + $(this).val() + '"',
         function(cities){
           cities.forEach(function(ele) {
             if ($('#city-select option[value="' + ele.city + '"]').length === 0) {
               $('#city-select').append('<option value="' + ele.city + '">' + ele.city + '</option>');
-            }
+            } //TODO: sort the cities alphabetically & use latitude/longitude to place marker on map
           });
         }
       );
@@ -44,10 +44,7 @@
             lat: latitude,
             lng: longitude
           };
-          // map.setCenter(location);
-          console.log(location);
           initMap(location);
-          // map.setCenter(location);
         }
       );
     });
