@@ -38,7 +38,7 @@
       webDB.execute(
         'SELECT latitude, longitude FROM zips WHERE zip="' + userInput + '"',
         function(coordinates) {
-          console.log(coordinates[0].latitude);;
+          var latitude = coordinates[0].latitude;
         }
       );
     });
