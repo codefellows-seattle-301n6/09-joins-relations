@@ -8,7 +8,9 @@
       function(states){
         console.log(states);
         states.forEach(function(ele) {
-          $('#state-select').append('<option value="' + ele.state + '">' + ele.state + '</option>');
+          if ($('#state-select option[value="' + ele.state + '"]').length === 0) {
+            $('#state-select').append('<option value="' + ele.state + '">' + ele.state + '</option>');
+          }
         });
       }
     );
