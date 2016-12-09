@@ -16,10 +16,11 @@
   };
 
   var cityFilter = function() {
-    $('#state-select').on('change', function(state){
-      console.log(state.val());
+    $('#state-select').on('change', function(){
+      document.getElementById('city-select').options.length = 1;
+      // console.log($(this).val());
       webDB.execute(
-        'SELECT city FROM zips WHERE state=' + state,
+        'SELECT city FROM zips WHERE state = "' + $(this).val() + '"',
         function(cities){
           cities.forEach(function(ele) {
             if ($('#city-select option[value="' + ele.city + '"]').length === 0) {
