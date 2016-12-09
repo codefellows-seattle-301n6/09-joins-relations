@@ -39,6 +39,15 @@
         'SELECT latitude, longitude FROM zips WHERE zip="' + userInput + '"',
         function(coordinates) {
           var latitude = coordinates[0].latitude;
+          var longitude = coordinates[0].longitude;
+          var location = {
+            lat: latitude,
+            lng: longitude
+          };
+          // map.setCenter(location);
+          console.log(location);
+          initMap(location);
+          // map.setCenter(location);
         }
       );
     });
@@ -49,4 +58,5 @@
   stateFilter();
   cityFilter();
   zipSearch();
+
 })(window);
