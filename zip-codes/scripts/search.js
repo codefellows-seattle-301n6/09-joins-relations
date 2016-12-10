@@ -34,7 +34,7 @@
   var citySearch = function() {
     $('#city-select').on('change', function() {
       webDB.execute(
-        'SELECT latitude, longitude ' +
+        'SELECT latitude, longitude, city, state, population ' +
         'FROM zips ' +
         'WHERE state="' + $('#state-select').val() + '" AND ' +
         'city="' + $(this).val() + '"',
@@ -45,11 +45,22 @@
             lat: latitude,
             lng: longitude
           };
-          initMap(location);
+          var city = coordinates[0].city;
+          var state = coordinates[0].state;
+          var pop = function() {
+            return coordinates.filter(function(city) {
+            return city.population;
+          }).reduce(function(total, current) {
+            total += current;
+            return total;
+          }, []);
+          console.log(pop);
+          var contentString = '<div id="info">' + '<h2>' + city + ', ' + state + '</h2><br><h4>Population: ' + pop + '</h4></div>';
+          initMap(location, contentString);
         }
-      );
-    });
-  };
+      }
+    );
+  });
 
   var zipSearch = function() {
     $('form').submit(function(e){
@@ -66,7 +77,12 @@
             lat: latitude,
             lng: longitude
           };
-          initMap(location);
+          var city = coordinates[0].city;
+          var state = coordinates[0].state;
+          var pop = coordinates[0].population;
+          var zip = coordinates[0].zip;
+          var contentString = '<div id="info">' + '<h2>' + city + ', ' + state + '</h2><br><h4>Zip Code: ' + zip + '<br>Population: ' + pop + '</h4></div>';
+          initMap(location, contentString);
         }
       );
     });
