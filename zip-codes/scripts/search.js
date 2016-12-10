@@ -81,27 +81,29 @@
   var zipSearch = function() {
     $('form').submit(function(e) {
       e.preventDefault();
-      if ($('input[name="zip"]').val().length !== 5 ) {
-
+      var userInput = $('input[name="zip"]').val();
+      if(userInput.length === 5 && /^[0-9]+$/.test(userInput)) {
+        webDB.execute(
+          'SELECT latitude, longitude, city, state, population ' +
+          'FROM zips ' +
+          'WHERE zip="' + userInput + '"',
+          function(coordinates) {
+            var latitude = coordinates[0].latitude;
+            var longitude = coordinates[0].longitude;
+            var location = {
+              lat: latitude,
+              lng: longitude
+            };
+            var city = coordinates[0].city;
+            var state = coordinates[0].state;
+            var pop = coordinates[0].population;
+            var contentString = '<div id="info">' + '<h1>' + city + ', ' + state + '</h1><h5>Zip Code: ' + userInput + '</h5><h3>Population: ' + pop + '</h3></div>';
+            initMap(location, contentString);
+          }
+        );
+      } else {
+        console.log('Suck it!');
       }
-      webDB.execute(
-        'SELECT latitude, longitude, city, state, population ' +
-        'FROM zips ' +
-        'WHERE zip="' + userInput + '"',
-        function(coordinates) {
-          var latitude = coordinates[0].latitude;
-          var longitude = coordinates[0].longitude;
-          var location = {
-            lat: latitude,
-            lng: longitude
-          };
-          var city = coordinates[0].city;
-          var state = coordinates[0].state;
-          var pop = coordinates[0].population;
-          var contentString = '<div id="info">' + '<h1>' + city + ', ' + state + '</h1><h5>Zip Code: ' + userInput + '</h5><h3>Population: ' + pop + '</h3></div>';
-          initMap(location, contentString);
-        }
-      );
     });
   };
   // TODO: Write the code to populate your filters, and enable the search queries here in search.js
