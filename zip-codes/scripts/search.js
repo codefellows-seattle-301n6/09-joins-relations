@@ -48,17 +48,15 @@
           var city = coordinates[0].city;
           var state = coordinates[0].state;
           var pop = function() {
-            return coordinates.filter(function(city) {
+            coordinates.filter(function(city) {
               return city.population;
             }).reduce(function(total, current) {
-              total += current;
-              return total;
-            }, []);
-            console.log(pop());
-            var contentString = '<div id="info">' + '<h2>' + city + ', ' + state + '</h2><br><h4>Population: ' + pop() + '</h4></div>';
-            initMap(contentString);
+              return total += current;
+            });
           };
-          initMap(location);
+          console.log(pop());
+          var contentString = '<div id="info">' + '<h2>' + city + ', ' + state + '</h2><br><h4>Population: ' + pop() + '</h4></div>';
+          initMap(location, contentString);
         }
       );
     });
