@@ -2,12 +2,18 @@
 
 (function(module) {
 
+  var placeHolder = function() {
+    $('input[placeholder]').each(function () {
+      $(this).attr('size', $(this).attr('placeholder').length);
+    });
+  };
+
   var stateFilter = function() {
     webDB.execute(
       'SELECT DISTINCT state ' +
       'FROM zips ' +
       'ORDER BY state ASC',
-      function(states){
+      function(states) {
         states.forEach(function(ele) {
           $('#state-select').append('<option value="' + ele.state + '">' + ele.state + '</option>');
         });
@@ -22,7 +28,7 @@
         'SELECT DISTINCT city, latitude, longitude ' +
         'FROM zips ' +
         'WHERE state = "' + $(this).val() + '" ORDER BY city ASC',
-        function(cities){
+        function(cities) {
           cities.forEach(function(ele) {
             $('#city-select').append('<option value="' + ele.city + '">' + ele.city + '</option>');
           });
@@ -73,9 +79,11 @@
   };
 
   var zipSearch = function() {
-    $('form').submit(function(e){
+    $('form').submit(function(e) {
       e.preventDefault();
-      var userInput = $('input[name="zip"]').val();
+      if ($('input[name="zip"]').val().length !== 5 ) {
+
+      }
       webDB.execute(
         'SELECT latitude, longitude, city, state, population ' +
         'FROM zips ' +
@@ -99,6 +107,7 @@
   // TODO: Write the code to populate your filters, and enable the search queries here in search.js
   // TODO: You will also interact with the map.js file here
 
+  placeHolder();
   stateFilter();
   cityFilter();
   citySearch();
