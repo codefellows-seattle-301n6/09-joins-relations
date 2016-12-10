@@ -30,7 +30,9 @@
         'WHERE state = "' + $(this).val() + '" ORDER BY city ASC',
         function(cities) {
           cities.forEach(function(ele) {
-            $('#city-select').append('<option value="' + ele.city + '">' + ele.city + '</option>');
+            if($('#city-select option[value="' + ele.city + '"]').length === 0) {
+              $('#city-select').append('<option value="' + ele.city + '">' + ele.city + '</option>');
+            }
           });
           var stateLocation = {
             lat: cities[0].latitude,
