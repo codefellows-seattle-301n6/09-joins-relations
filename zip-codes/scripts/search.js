@@ -49,18 +49,20 @@
           var state = coordinates[0].state;
           var pop = function() {
             return coordinates.filter(function(city) {
-            return city.population;
-          }).reduce(function(total, current) {
-            total += current;
-            return total;
-          }, []);
-          console.log(pop);
-          var contentString = '<div id="info">' + '<h2>' + city + ', ' + state + '</h2><br><h4>Population: ' + pop + '</h4></div>';
-          initMap(location, contentString);
+              return city.population;
+            }).reduce(function(total, current) {
+              total += current;
+              return total;
+            }, []);
+            console.log(pop());
+            var contentString = '<div id="info">' + '<h2>' + city + ', ' + state + '</h2><br><h4>Population: ' + pop() + '</h4></div>';
+            initMap(contentString);
+          };
+          initMap(location);
         }
-      }
-    );
-  });
+      );
+    });
+  };
 
   var zipSearch = function() {
     $('form').submit(function(e){
