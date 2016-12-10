@@ -1,3 +1,22 @@
 #info {
   text-align: center;
 }
+
+#error-img {
+  max-height: 75%;
+  max-width: 50%;
+}
+
+#error-msg {
+  font-family: 'Pinyon Script', cursive;
+  font-size: 30pt;
+}
+
+#error {
+  text-align: center;
+  /*background-size: contain;*/
+}
+
+#back-text {
+  font-size: 15pt;
+}
