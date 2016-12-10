@@ -4,12 +4,12 @@
 
   var stateFilter = function() {
     webDB.execute(
-      'SELECT state FROM zips',
+      'SELECT DISTINCT state ' +
+      'FROM zips ' +
+      'ORDER BY state ASC',
       function(states){
         states.forEach(function(ele) {
-          if ($('#state-select option[value="' + ele.state + '"]').length === 0) {
-            $('#state-select').append('<option value="' + ele.state + '">' + ele.state + '</option>');
-          }//TODO: sort the states alphabetically
+          $('#state-select').append('<option value="' + ele.state + '">' + ele.state + '</option>');
         });
       }
     );
@@ -19,13 +19,33 @@
     $('#state-select').on('change', function(){
       document.getElementById('city-select').options.length = 1;
       webDB.execute(
-        'SELECT city, latitude, longitude FROM zips WHERE state = "' + $(this).val() + '"',
+        'SELECT DISTINCT city ' +
+        'FROM zips ' +
+        'WHERE state = "' + $(this).val() + '" ORDER BY city ASC',
         function(cities){
           cities.forEach(function(ele) {
-            if ($('#city-select option[value="' + ele.city + '"]').length === 0) {
-              $('#city-select').append('<option value="' + ele.city + '">' + ele.city + '</option>');
-            } //TODO: sort the cities alphabetically & use latitude/longitude to place marker on map
+            $('#city-select').append('<option value="' + ele.city + '">' + ele.city + '</option>');
           });
+        }
+      );
+    });
+  };
+
+  var citySearch = function() {
+    $('#city-select').on('change', function() {
+      webDB.execute(
+        'SELECT latitude, longitude ' +
+        'FROM zips ' +
+        'WHERE state="' + $('#state-select').val() + '" AND ' +
+        'city="' + $(this).val() + '"',
+        function(coordinates) {
+          var latitude = coordinates[0].latitude;
+          var longitude = coordinates[0].longitude;
+          var location = {
+            lat: latitude,
+            lng: longitude
+          };
+          initMap(location);
         }
       );
     });
@@ -36,7 +56,9 @@
       e.preventDefault();
       var userInput = $('input[name="zip"]').val();
       webDB.execute(
-        'SELECT latitude, longitude FROM zips WHERE zip="' + userInput + '"',
+        'SELECT latitude, longitude ' +
+        'FROM zips ' +
+        'WHERE zip="' + userInput + '"',
         function(coordinates) {
           var latitude = coordinates[0].latitude;
           var longitude = coordinates[0].longitude;
@@ -55,5 +77,5 @@
   stateFilter();
   cityFilter();
   zipSearch();
-
+  citySearch();
 })(window);
