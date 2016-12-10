@@ -103,6 +103,7 @@
         );
       } else {
         console.log('Suck it!');
+        window.location.href = 'error.html';
       }
     });
   };
