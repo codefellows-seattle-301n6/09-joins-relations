@@ -19,13 +19,18 @@
     $('#state-select').on('change', function(){
       document.getElementById('city-select').options.length = 1;
       webDB.execute(
-        'SELECT DISTINCT city ' +
+        'SELECT DISTINCT city, latitude, longitude ' +
         'FROM zips ' +
         'WHERE state = "' + $(this).val() + '" ORDER BY city ASC',
         function(cities){
           cities.forEach(function(ele) {
             $('#city-select').append('<option value="' + ele.city + '">' + ele.city + '</option>');
           });
+          var stateLocation = {
+            lat: cities[0].latitude,
+            lng: cities[0].longitude
+          };
+          initMap(stateLocation);
         }
       );
     });
