@@ -60,7 +60,7 @@
               return total += current;
             });
           };
-          var contentString = '<div id="info">' + '<h1>' + city + ', ' + state + '</h1><h3>Population: ' + pop() + '</h3><h5><strong>Includes zips: </strong>' + zips() + '</h5></div>';
+          var contentString = '<div id="info">' + '<h1>' + city + ', ' + state + '</h1><h5><strong>Includes zips: </strong>' + zips() + '</h5><h3>Population: ' + pop() + '</h3></div>';
           initMap(location, contentString);
         }
       );
