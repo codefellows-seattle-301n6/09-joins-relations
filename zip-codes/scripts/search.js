@@ -48,7 +48,7 @@
           var city = coordinates[0].city;
           var state = coordinates[0].state;
           var pop = function() {
-            coordinates.filter(function(city) {
+            return coordinates.map(function(city) {
               return city.population;
             }).reduce(function(total, current) {
               return total += current;
