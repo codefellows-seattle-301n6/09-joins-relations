@@ -34,7 +34,7 @@
   var citySearch = function() {
     $('#city-select').on('change', function() {
       webDB.execute(
-        'SELECT latitude, longitude, city, state, population ' +
+        'SELECT latitude, longitude, city, state, zip, population ' +
         'FROM zips ' +
         'WHERE state="' + $('#state-select').val() + '" AND ' +
         'city="' + $(this).val() + '"',
@@ -47,6 +47,12 @@
           };
           var city = coordinates[0].city;
           var state = coordinates[0].state;
+          var zips = function() {
+            return coordinates.map(function(zippy) {
+              return zippy.zip;
+            }).join(', ');
+          };
+          console.log(zips());
           var pop = function() {
             return coordinates.map(function(city) {
               return city.population;
@@ -54,7 +60,7 @@
               return total += current;
             });
           };
-          var contentString = '<div id="info">' + '<h2>' + city + ', ' + state + '</h2><h4>Population: ' + pop() + '</h4></div>';
+          var contentString = '<div id="info">' + '<h1>' + city + ', ' + state + '</h1><h3>Population: ' + pop() + '</h3><h5><strong>Includes zips: </strong>' + zips() + '</h5></div>';
           initMap(location, contentString);
         }
       );
@@ -66,7 +72,7 @@
       e.preventDefault();
       var userInput = $('input[name="zip"]').val();
       webDB.execute(
-        'SELECT latitude, longitude ' +
+        'SELECT latitude, longitude, city, state, population ' +
         'FROM zips ' +
         'WHERE zip="' + userInput + '"',
         function(coordinates) {
@@ -79,8 +85,7 @@
           var city = coordinates[0].city;
           var state = coordinates[0].state;
           var pop = coordinates[0].population;
-          var zip = coordinates[0].zip;
-          var contentString = '<div id="info">' + '<h2>' + city + ', ' + state + '</h2><br><h4>Zip Code: ' + zip + '<br>Population: ' + pop + '</h4></div>';
+          var contentString = '<div id="info">' + '<h1>' + city + ', ' + state + '</h1><h5>Zip Code: ' + userInput + '</h5><h3>Population: ' + pop + '</h3></div>';
           initMap(location, contentString);
         }
       );
@@ -91,7 +96,7 @@
 
   stateFilter();
   cityFilter();
-  zipSearch();
   citySearch();
+  zipSearch();
 
 })(window);
