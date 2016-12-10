@@ -54,8 +54,7 @@
               return total += current;
             });
           };
-          console.log(pop());
-          var contentString = '<div id="info">' + '<h2>' + city + ', ' + state + '</h2><br><h4>Population: ' + pop() + '</h4></div>';
+          var contentString = '<div id="info">' + '<h2>' + city + ', ' + state + '</h2><h4>Population: ' + pop() + '</h4></div>';
           initMap(location, contentString);
         }
       );
@@ -94,4 +93,5 @@
   cityFilter();
   zipSearch();
   citySearch();
+
 })(window);
