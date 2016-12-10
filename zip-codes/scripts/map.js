@@ -4,7 +4,7 @@
 function initMap(location, contentString) {
   // Create a map object and specify the DOM element for display.
 
-  if (location !== null && contentString !== null) {
+  if (location !== undefined && contentString !== undefined) {
 
     var mapOptions = {
       center: location || {lat: 47.611435, lng: -122.330456},
@@ -27,21 +27,19 @@ function initMap(location, contentString) {
     });
   }
 
-  else if (location !== null && contentString === null) {
-    console.log('yo we elsifing');
+  else if (location !== undefined && contentString === undefined) {
 
     var stateMapOptions = {
       center: location || {lat: 47.611435, lng: -122.330456},
       scrollwheel: true,
-      zoom: 1
+      zoom: 6
     };
 
-    var map = new google.maps.Map(document.getElementById('map'), stateMapOptions);
+    var stateMap = new google.maps.Map(document.getElementById('map'), stateMapOptions);
 
   }
 
   else {
-    console.log('yo we elsing');
 
     var defaultMapOptions = {
       center: location || {lat: 47.611435, lng: -122.330456},
@@ -49,7 +47,7 @@ function initMap(location, contentString) {
       zoom: 8
     };
 
-    var map = new google.maps.Map(document.getElementById('map'), defaultMapOptions);
+    var defaultMap = new google.maps.Map(document.getElementById('map'), defaultMapOptions);
 
   }
 
