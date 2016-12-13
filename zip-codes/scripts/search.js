@@ -75,7 +75,7 @@
           };
           var contentString = '<div id="info">' + '<h1>' + city + ', ' + state + '</h1><h5><strong>Includes zips: </strong>' + zips() + '</h5><h3>Population: ' + pop() + '</h3></div>';
           initMap(location, contentString);
-        }
+        }//TODO: Refactor to put a marker at each zip code for given city
       );
     });
   };
