@@ -24,6 +24,7 @@
   var cityFilter = function() {
     $('#state-select').on('change', function(){
       document.getElementById('city-select').options.length = 1;
+      $('#city-select option').empty();
       webDB.execute(
         'SELECT DISTINCT city, latitude, longitude ' +
         'FROM zips ' +
@@ -104,7 +105,6 @@
           }
         );
       } else {
-        console.log('Suck it!');
         window.location.href = 'error.html';
       }
     });
