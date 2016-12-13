@@ -15,18 +15,18 @@
     <header>
       <section>
         <form>
-          <label for="zip">Select a Zip</label>
-          <input type="text" name="zip">
+          <label for="zip">Search by Zip Code</label>
+          <input type="text" name="zip" placeholder="Please enter a 5-digit number.">
           <input type="submit" value="Search">
         </form>
       </section>
       <section><p>OR</p></section>
       <section>
         <select id="state-select">
-          <option value="state">Select a State</option>
+          <option value="state" class="defaultOption">Select a State</option>
         </select>
         <select id="city-select">
-          <option value="city">Select a City</option>
+          <option value="city" class="defaultOption">Select a City</option>
         </select>
       </section>
     </header>
@@ -40,7 +40,7 @@
     <script type="text/javascript" src='scripts/loadDB.js'></script>
     <script type="text/javascript" src='scripts/map.js'></script>
     <!-- TODO: Create an API Key (linked in the README) and populate the script below where it says 'API_KEY_HERE'-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY_HERE&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKtCFl95a0bpIhpIKMp03iyBFStf7MkDc&callback=initMap" async defer></script>
     <script type="text/javascript">
       zips.loadDB();
     </script>
