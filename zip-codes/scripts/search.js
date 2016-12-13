@@ -66,7 +66,6 @@
               return zippy.zip;
             }).join(', ');
           };
-          console.log(zips());
           var pop = function() {
             return coordinates.map(function(city) {
               return city.population;
